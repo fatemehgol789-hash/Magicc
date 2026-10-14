@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#80634f">
+<title>Parvaz Daily | پرواز روزانه</title>
+<style>
+:root{--bg:#f7f2ec;--paper:#fffdf9;--ink:#352d28;--muted:#897c71;--accent:#8b6b52;--accent2:#d9c2ac;--line:#e9ded3;--rose:#c58d83;--green:#71816b;--shadow:0 8px 28px #4934210d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,"Segoe UI",sans-serif;line-height:1.8}
+header{background:linear-gradient(135deg,#80634f,#b99a7d);color:#fff;padding:28px 18px 24px}
+.wrap{max-width:1050px;margin:auto;padding:0 16px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-size:25px;font-weight:800;letter-spacing:.3px}.sub{font-size:13px;opacity:.9}
+.date{font-size:13px;background:#ffffff22;padding:8px 12px;border-radius:20px}
+nav{display:flex;gap:8px;overflow:auto;padding:14px 0 2px}
+nav button{white-space:nowrap;border:1px solid #ffffff55;background:#ffffff14;color:white;padding:8px 13px;border-radius:20px;cursor:pointer;font:inherit;font-size:13px}
+nav button.active,nav button:hover{background:#fff;color:#72563f}
+main{padding:22px 0 45px}.intro{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px;flex-wrap:wrap}
+h1{font-size:22px;margin:0 0 3px}p{margin:4px 0}.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-6{grid-column:span 6}.span-4{grid-column:span 4}
+.card h2{font-size:16px;margin:0 0 12px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+input,textarea,select{width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font:inherit;font-size:13px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--accent2);box-shadow:0 0 0 3px #d9c2ac33}
+textarea{resize:vertical;min-height:88px}.field{display:grid;gap:5px;flex:1;min-width:130px}.field label{font-size:12px;color:var(--muted)}
+.btn{border:0;background:var(--accent);color:#fff;padding:9px 14px;border-radius:10px;cursor:pointer;font:inherit;font-size:13px}.btn.secondary{background:#efe5db;color:#654e3c}.btn.danger{background:#f4e4e0;color:#8e5148}.btn.small{padding:5px 9px;font-size:12px}
+.list{display:grid;gap:8px}.item{display:flex;align-items:flex-start;gap:9px;padding:10px 11px;background:#faf5ef;border-radius:11px}.item input[type=checkbox]{width:auto;margin-top:7px;accent-color:var(--green)}.item .content{flex:1;min-width:0;overflow-wrap:anywhere}.item .content.done{text-decoration:line-through;color:#9a9086}.item small{display:block;color:var(--muted);font-size:11px}
+.pills{display:flex;gap:7px;flex-wrap:wrap}.pill{padding:6px 10px;border-radius:20px;background:#f1e8df;font-size:12px}.moods button{font-size:22px;background:#faf4ed;border:1px solid var(--line);border-radius:12px;padding:7px 10px;cursor:pointer}.moods button.selected{background:#e4d1bf;border-color:var(--accent)}
+.empty{color:#a19589;font-size:13px;text-align:center;padding:14px}.progress{height:7px;background:#eee5dc;border-radius:10px;overflow:hidden;margin-top:10px}.progress div{height:100%;width:0;background:var(--green);transition:width .2s}
+.stat{font-size:24px;font-weight:800;color:var(--accent)}.statlabel{font-size:12px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:0 15px 24px}
+.hidden{display:none!important}
+@media(max-width:700px){.span-8,.span-6,.span-4{grid-column:span 12}.brand{font-size:22px}.card{padding:15px}header{padding-top:22px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <div class="top"><div><div class="brand">✦ Parvaz Daily</div><div class="sub">یک فضای آرام برای فکرها، هدف‌ها و روزهای تو</div></div><div class="date" id="today"></div></div>
+  <nav id="nav">
+   <button class="active" data-page="daily">امروز من</button><button data-page="study">درس و یادگیری</button><button data-page="books">کتابخانه</button><button data-page="journal">ژورنال و نقد</button><button data-page="care">مراقبت از خود</button><button data-page="finance">هزینه‌ها</button>
+  </nav>
+ </div>
+</header>
+<main class="wrap">
+ <section id="page-daily" class="page">
+  <div class="intro"><div><h1>سلام، به روزت خوش ✨</h1><p class="muted">قرار نیست همه‌چیز کامل باشد؛ فقط یک قدم کوچک بردار.</p></div><div class="pills"><span class="pill">☕ آرام شروع کن</span><span class="pill" id="taskSummary">۰ کار انجام‌شده</span></div></div>
+  <div class="grid">
+   <div class="card span-8"><h2>☀️ برنامه امروز</h2><form id="taskForm" class="row"><div class="field"><label for="taskText">کار یا هدف کوچک</label><input id="taskText" required placeholder="مثلاً ۲۰ دقیقه مطالعه"></div><div class="field" style="max-width:150px"><label for="taskTime">زمان (اختیاری)</label><input id="taskTime" type="time"></div><button class="btn" type="submit">افزودن</button></form><div class="list" id="taskList" style="margin-top:12px"></div><div class="progress"><div id="taskProgress"></div></div></div>
+   <div class="card span-4"><h2>🌿 حال امروزت چطوره؟</h2><p class="muted">بدون قضاوت، فقط ثبتش کن.</p><div class="moods row" id="moods"><button type="button" data-mood="خیلی خوب" aria-label="خیلی خوب">😄</button><button type="button" data-mood="خوب" aria-label="خوب">🙂</button><button type="button" data-mood="معمولی" aria-label="معمولی">😐</button><button type="button" data-mood="خسته" aria-label="خسته">😴</button><button type="button" data-mood="دلگیر" aria-label="دلگیر">🌧️</button></div><p id="moodResult" class="muted" style="margin-top:10px">هنوز حال امروزت را ثبت نکرده‌ای.</p><div class="field"><label for="moodNote">چه چیزی روی حالت اثر گذاشت؟</label><textarea id="moodNote" placeholder="چند کلمه برای خودت..."></textarea></div><button class="btn secondary" id="saveMood" style="margin-top:8px">ذخیره حال امروز</button></div>
+   <div class="card span-4"><h2>📌 یک نکته مهم</h2><textarea id="importantNote" placeholder="چیزی که امروز نمی‌خواهی فراموش کنی..."></textarea><button class="btn secondary" id="saveImportant" style="margin-top:8px">ذخیره نکته</button></div>
+   <div class="card span-4"><h2>📚 یادگیری امروز</h2><div class="field"><label for="todayStudy">موضوع یا چیزی که یاد گرفتی</label><textarea id="todayStudy" placeholder="مثلاً یک نکته حقوقی یا عبارت انگلیسی"></textarea></div><button class="btn secondary" id="saveStudy" style="margin-top:8px">ذخیره یادگیری</button></div>
+   <div class="card span-4"><h2>✨ یادآوری مهربانانه</h2><p>استراحت هم بخشی از پیشرفت است. با خودت همان‌قدر مهربان باش که با یک دوست مهربانی.</p><div class="stat" id="doneStat">۰</div><div class="statlabel">کار انجام‌شده امروز</div></div>
+  </div>
+ </section>
+ <section id="page-study" class="page hidden">
+  <div class="intro"><div><h1>درس و یادگیری 📖</h1><p class="muted">موضوع‌ها، نکته‌ها و برنامه مطالعه‌ات را یک‌جا نگه دار.</p></div></div>
+  <div class="grid">
+   <div class="card span-6"><h2>➕ افزودن موضوع مطالعه</h2><form id="studyForm"><div class="field"><label>عنوان</label><input id="studyTitle" required placeholder="مثلاً حقوق مدنی"></div><div class="field" style="margin-top:8px"><label>یادداشت یا هدف</label><textarea id="studyDesc" placeholder="چه چیزی باید بخوانم؟"></textarea></div><button class="btn" style="margin-top:8px">افزودن موضوع</button></form></div>
+   <div class="card span-6"><h2>فهرست مطالعه</h2><div id="studyList" class="list"></div></div>
+   <div class="card span-12"><h2>🧠 دفتر نکات حقوقی و درسی</h2><form id="noteForm"><div class="field"><label>عنوان نکته</label><input id="noteTitle" required placeholder="عنوان کوتاه"></div><div class="field" style="margin-top:8px"><label>متن نکته</label><textarea id="noteBody" required placeholder="خلاصه، ماده قانونی، پرسش یا نکته مهم..."></textarea></div><button class="btn" style="margin-top:8px">ذخیره نکته</button></form><div id="noteList" class="list" style="margin-top:12px"></div></div>
+  </div>
+ </section>
+ <section id="page-books" class="page hidden">
+  <div class="intro"><div><h1>کتابخانه من 📚</h1><p class="muted">رمان‌هایی که خوانده‌ای، در حال خواندنشان هستی یا دوست داری بخوانی.</p></div></div>
+  <div class="grid"><div class="card span-4"><h2>افزودن کتاب</h2><form id="bookForm"><div class="field"><label>نام کتاب</label><input id="bookTitle" required placeholder="نام رمان یا کتاب"></div><div class="field" style="margin-top:8px"><label>نویسنده</label><input id="bookAuthor" placeholder="نام نویسنده"></div><div class="field" style="margin-top:8px"><label>وضعیت</label><select id="bookStatus"><option>می‌خواهم بخوانم</option><option>در حال خواندن</option><option>خوانده‌ام</option></select></div><button class="btn" style="margin-top:10px">افزودن کتاب</button></form></div><div class="card span-8"><h2>کتاب‌های من</h2><div id="bookList" class="list"></div></div></div>
+ </section>
+ <section id="page-journal" class="page hidden">
+  <div class="intro"><div><h1>ژورنال و نقد ✍️</h1><p class="muted">برای فکرهایی که می‌خواهی جایی امن ثبتشان کنی.</p></div></div>
+  <div class="grid"><div class="card span-6"><h2>یادداشت تازه</h2><form id="journalForm"><div class="field"><label>عنوان</label><input id="journalTitle" required placeholder="عنوان یادداشت یا نقد"></div><div class="field" style="margin-top:8px"><label>دسته‌بندی</label><select id="journalCategory"><option>ژورنال روزانه</option><option>نقد کتاب</option><option>نقد فیلم</option><option>ایده و فکر</option><option>سپاسگزاری</option></select></div><div class="field" style="margin-top:8px"><label>متن</label><textarea id="journalBody" required placeholder="هرچه در ذهن داری..."></textarea></div><button class="btn" style="margin-top:8px">ذخیره یادداشت</button></form></div><div class="card span-6"><h2>یادداشت‌های قبلی</h2><div id="journalList" class="list"></div></div></div>
+ </section>
+ <section id="page-care" class="page hidden">
+  <div class="intro"><div><h1>مراقبت از خود 🌱</h1><p class="muted">عادت‌های کوچک برای رسیدگی به خودت، گیاه‌ها و بدنت.</p></div></div>
+  <div class="grid">
+   <div class="card span-4"><h2>🪴 مراقبت از گل‌ها</h2><form id="plantForm"><div class="field"><label>نام گیاه یا کار</label><input id="plantText" required placeholder="مثلاً آبیاری پتوس"></div><button class="btn" style="margin-top:8px">افزودن</button></form><div id="plantList" class="list" style="margin-top:12px"></div></div>
+   <div class="card span-4"><h2>🥗 غذا و آب</h2><form id="foodForm"><div class="field"><label>یادداشت تغذیه</label><input id="foodText" required placeholder="مثلاً ناهار یا نوشیدن آب"></div><button class="btn" style="margin-top:8px">ثبت</button></form><div id="foodList" class="list" style="margin-top:12px"></div></div>
+   <div class="card span-4"><h2>🚶 حرکت و ورزش</h2><form id="exerciseForm"><div class="field"><label>فعالیت دلخواه</label><input id="exerciseText" required placeholder="مثلاً پیاده‌روی آرام"></div><div class="field" style="margin-top:8px"><label>مدت (دقیقه)</label><input id="exerciseMinutes" type="number" min="1" placeholder="۱۵"></div><button class="btn" style="margin-top:8px">ثبت فعالیت</button></form><div id="exerciseList" class="list" style="margin-top:12px"></div></div>
+  </div>
+ </section>
+ <section id="page-finance" class="page hidden">
+  <div class="intro"><div><h1>مدیریت هزینه‌ها 💰</h1><p class="muted">ثبت ساده خرج‌ها برای شناخت بهتر عادت‌های مالی.</p></div></div>
+  <div class="grid"><div class="card span-4"><h2>ثبت هزینه</h2><form id="expenseForm"><div class="field"><label>عنوان هزینه</label><input id="expenseTitle" required placeholder="مثلاً کتاب"></div><div class="field" style="margin-top:8px"><label>مبلغ</label><input id="expenseAmount" type="number" min="0" required placeholder="مبلغ به تومان"></div><div class="field" style="margin-top:8px"><label>دسته</label><select id="expenseCategory"><option>آموزش</option><option>خوراک</option><option>رفت‌وآمد</option><option>تفریح</option><option>خرید</option><option>سایر</option></select></div><button class="btn" style="margin-top:8px">ثبت هزینه</button></form></div><div class="card span-8"><h2>هزینه‌های ثبت‌شده</h2><p>مجموع: <strong id="expenseTotal">۰ تومان</strong></p><div id="expenseList" class="list"></div></div></div>
+ </section>
+ <div class="card" style="margin-top:15px"><h2>🧳 اطلاعاتت را همراه خودت نگه دار</h2><p class="muted">اطلاعات این نسخه در حافظه همین مرورگر ذخیره می‌شود. برای انتقال یا نگهداری نسخه پشتیبان، خروجی JSON بگیر.</p><div class="row" style="margin-top:10px"><button class="btn secondary" id="exportBtn">دریافت نسخه پشتیبان</button><label class="btn secondary" for="importFile" style="cursor:pointer">بازیابی نسخه پشتیبان</label><input class="hidden" id="importFile" type="file" accept="application/json"><button class="btn danger" id="clearBtn">پاک کردن همه اطلاعات</button></div></div>
+</main>
+<footer>Parvaz Daily · ساخته‌شده برای روزهای کوچک و قدم‌های بزرگ تو</footer>
+<script>
+const $=id=>document.getElementById(id);
+const todayKey=new Date().toLocaleDateString('en-CA');
+$('today').textContent=new Date().toLocaleDateString('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+const defaultData={tasks:[],mood:{},important:{},dailyStudy:{},studies:[],notes:[],books:[],journals:[],plants:[],foods:[],exercises:[],expenses:[]};
+let data={...defaultData};
+try{const saved=JSON.parse(localStorage.getItem('parvazDailyData')||'{}');data={...defaultData,...saved}}catch(e){}
+function persist(){localStorage.setItem('parvazDailyData',JSON.stringify(data));renderAll()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function empty(msg='هنوز چیزی ثبت نشده است.'){return `<div class="empty">${msg}</div>`}
+function itemList(el,arr,render,remove){$(el).innerHTML=arr.length?arr.map((x,i)=>render(x,i)).join(''):empty();$(el).querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{remove(Number(b.dataset.remove));persist()})}
+function renderTasks(){let arr=data.tasks.filter(t=>t.day===todayKey);$('taskList').innerHTML=arr.length?arr.map(t=>`<div class="item"><input type="checkbox" data-task="${t.id}" ${t.done?'checked':''}><div class="content ${t.done?'done':''}">${esc(t.text)}${t.time?`<small>⏰ ${esc(t.time)}</small>`:''}</div><button class="btn danger small" data-remove-task="${t.id}">حذف</button></div>`).join(''):empty('هنوز کاری برای امروز اضافه نکرده‌ای.');$('taskList').querySelectorAll('[data-task]').forEach(c=>c.onchange=()=>{let t=data.tasks.find(t=>t.id===c.dataset.task);if(t)t.done=c.checked;persist()});$('taskList').querySelectorAll('[data-remove-task]').forEach(b=>b.onclick=()=>{data.tasks=data.tasks.filter(t=>t.id!==b.dataset.removeTask);persist()});let done=arr.filter(t=>t.done).length;$('taskProgress').style.width=(arr.length?done/arr.length*100:0)+'%';$('taskSummary').textContent=`${done} از ${arr.length} کار انجام‌شده`;$('doneStat').textContent=done.toLocaleString('fa-IR')}
+function renderMood(){let m=data.mood[todayKey]||{};$('moodResult').textContent=m.mood?`حال ثبت‌شده: ${m.emoji} ${m.mood}`:'هنوز حال امروزت را ثبت نکرده‌ای.';$('moodNote').value=m.note||'';document.querySelectorAll('#moods button').forEach(b=>b.classList.toggle('selected',b.dataset.mood===m.mood))}
+function renderAll(){renderTasks();renderMood();$('importantNote').value=data.important[todayKey]||'';$('todayStudy').value=data.dailyStudy[todayKey]||'';
+itemList('studyList',data.studies,(x,i)=>`<div class="item"><div class="content"><strong>${esc(x.title)}</strong><small>${esc(x.desc||'')}</small></div><button class="btn danger small" data-remove="${i}">حذف</button></div>`,i=>data.studies.splice(i,1));
+itemList('noteList',data.notes,(x,i)=>`<div class="item"><div class="content"><strong>${esc(x.title)}</strong><small>${esc(x.body)}</small></div><button class="btn danger small" data-remove="${i}">حذف</button></div>`,i=>data.notes.splice(i,1));
+itemList('bookList',data.books,(x,i)=>`<div class="item"><div class="content"><strong>${esc(x.title)}</strong><small>${esc(x.author||'نویسنده نامشخص')} · ${esc(x.status)}</small></div><button class="btn danger small" data-remove="${i}">حذف</button></div>`,i=>data.books.splice(i,1));
+itemList('journalList',data.journals,(x,i)=>`<div class="item"><div class="content"><strong>${esc(x.title)}</strong><small>${esc(x.category)} · ${esc(x.date)}</small><p>${esc(x.body)}</p></div><button class="btn danger small" data-remove="${i}">حذف</button></div>`,i=>data.journals.splice(i,1));
+for(const [key,el] of [['plants','plantList'],['foods','foodList'],['exercises','exerciseList']])itemList(el,data[key],(x,i)=>`<div class="item"><div class="content">${esc(x.text)}${x.extra?`<small>${esc(x.extra)}</small>`:''}</div><button class="btn danger small" data-remove="${i}">حذف</button></div>`,i=>data[key].splice(i,1));
+itemList('expenseList',data.expenses,(x,i)=>`<div class="item"><div class="content"><strong>${esc(x.title)}</strong><small>${esc(x.category)} · ${Number(x.amount).toLocaleString('fa-IR')} تومان</small></div><button class="btn danger small" data-remove="${i}">حذف</button></div>`,i=>data.expenses.splice(i,1));
+$('expenseTotal').textContent=data.expenses.reduce((s,x)=>s+Number(x.amount||0),0).toLocaleString('fa-IR')+' تومان';
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('hidden',p.id!=='page-'+b.dataset.page))});
+$('taskForm').onsubmit=e=>{e.preventDefault();data.tasks.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),day:todayKey,text:$('taskText').value.trim(),time:$('taskTime').value,done:false});e.target.reset();persist()};
+let chosenMood='';
+$('moods').onclick=e=>{let b=e.target.closest('button');if(!b)return;chosenMood=b.dataset.mood;document.querySelectorAll('#moods button').forEach(x=>x.classList.toggle('selected',x===b));$('moodResult').textContent='انتخاب تو: '+chosenMood};
+$('saveMood').onclick=()=>{let b=[...document.querySelectorAll('#moods button')].find(x=>x.dataset.mood===chosenMood);data.mood[todayKey]={mood:chosenMood||data.mood[todayKey]?.mood||'',emoji:b?.textContent||data.mood[todayKey]?.emoji||'',note:$('moodNote').value};persist()};
+$('saveImportant').onclick=()=>{data.important[todayKey]=$('importantNote').value;persist();alert('نکته ذخیره شد.')};
+$('saveStudy').onclick=()=>{data.dailyStudy[todayKey]=$('todayStudy').value;persist();alert('یادگیری ذخیره شد.')};
+$('studyForm').onsubmit=e=>{e.preventDefault();data.studies.unshift({title:$('studyTitle').value,desc:$('studyDesc').value});e.target.reset();persist()};
+$('noteForm').onsubmit=e=>{e.preventDefault();data.notes.unshift({title:$('noteTitle').value,body:$('noteBody').value});e.target.reset();persist()};
+$('bookForm').onsubmit=e=>{e.preventDefault();data.books.unshift({title:$('bookTitle').value,author:$('bookAuthor').value,status:$('bookStatus').value});e.target.reset();persist()};
+$('journalForm').onsubmit=e=>{e.preventDefault();data.journals.unshift({title:$('journalTitle').value,category:$('journalCategory').value,body:$('journalBody').value,date:new Date().toLocaleDateString('fa-IR')});e.target.reset();persist()};
+function simpleForm(form,textId,key,extraFn){$(form).onsubmit=e=>{e.preventDefault();let text=$(textId).value.trim();if(!text)return;data[key].unshift({text,extra:extraFn?extraFn():''});e.target.reset();persist()}}
+simpleForm('plantForm','plantText','plants');simpleForm('foodForm','foodText','foods');simpleForm('exerciseForm','exerciseText','exercises',()=>$('exerciseMinutes').value?`${$('exerciseMinutes').value} دقیقه`: '');
+$('expenseForm').onsubmit=e=>{e.preventDefault();data.expenses.unshift({title:$('expenseTitle').value,amount:$('expenseAmount').value,category:$('expenseCategory').value});e.target.reset();persist()};
+$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='parvaz-daily-backup.json';a.click();URL.revokeObjectURL(a.href)};
+$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let imported=JSON.parse(await f.text());if(!confirm('اطلاعات فعلی با نسخه پشتیبان جایگزین شود؟'))return;data={...defaultData,...imported};persist();alert('نسخه پشتیبان بازیابی شد.')}catch(err){alert('فایل معتبر نیست.')}e.target.value=''};
+$('clearBtn').onclick=()=>{if(confirm('همه اطلاعات Parvaz Daily پاک شود؟ این کار قابل بازگشت نیست.')){data={...defaultData};persist()}};
+renderAll();
+</script>
+</body>
+</html>
